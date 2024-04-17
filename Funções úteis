@@ -36,7 +36,7 @@ Function UltimaLinhaPreenchida(ByVal worksheetName as String, ByVal linhaFinal a
 
 	dim rangeStr as String
 
-	if (colunaStr = "") And (colunaNum = 0)
+	if (colunaStr = "") And (colunaNum = 0) then
 		colunaNum = 1
 	end if
 	if colunaStr <> "" then
