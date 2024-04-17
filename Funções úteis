@@ -1,0 +1,14 @@
+Funções úteis VBA
+-----------------
+
+function EncontrarCoisas(byVal coisa as String/Integer/Variant/Etc, byVal intervaloBusca as Range, byVal worksheetName as String) as String/Integer/Variant/Etc
+	'Utiliza o "Localizar" do excel para encontrar qualquer coisa na planilha. Muito mais rápido do que rodar célula a célula com um loop for/while.
+	
+	dim resultado as Range
+
+	With Worksheets(worksheetName).Range(intervaloBusca)
+        	Set resultado = .Find(What:=coisa, LookIn:=xlFormulas, LookAt:=xlPart(/xlWhole), SearchOrder:=xlByRows(/xlbyColumns), SearchDirection:=xlNext, MatchCase:=False(/True), SearchFormat:=False)
+	End With
+
+	EncontrarCoisas = resultado.value	'Alternativamente, pode ser retornado a linha (resultado.row), coluna (resultado.column) etc.
+end function
