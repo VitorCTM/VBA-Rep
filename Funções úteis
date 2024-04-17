@@ -31,7 +31,7 @@ End Function
 Function UltimaLinhaPreenchida(ByVal worksheetName as String, ByVal linhaFinal as Double, Optional ByVal colunaStr as String, Optional ByVal colunaNum as Double) as Double
 	'Retorna a última linha que possui dados em uma determinada coluna de uma aba da planilha.
 	'Devem ser passados de parâmetro o nome da aba, a coluna usada como referência para preenchimento e a coluna, que pode ser em formato de letra ou número.
-	'Informar a coluna é opcional. Caso nenhum valor seja informado, a planilha vai retornar a última linha preenchida da coluna A.
+	'Informar a coluna é opcional. Caso nenhum valor seja informado, a planilha vai retornar a última linha preenchida da coluna A (1).
 	'O parâmetro última linha determina onde será iniciada a busca. Se uma aba tiver as linhas 1-10 e 18-24 preenchidas, colocar 15 nesse parâmetro vai retornar 10, enquanto colocar 50 vai retornar 24.
 
 	dim rangeStr as String
