@@ -28,24 +28,39 @@ End Function
 
 '===========================================
 
-Function UltimaLinhaPreenchida(ByVal worksheetName as String, ByVal linhaFinal as Double, Optional ByVal colunaStr as String, Optional ByVal colunaNum as Double) as Double
-	'Retorna a última linha que possui dados em uma determinada coluna de uma aba da planilha.
-	'Devem ser passados de parâmetro o nome da aba, a coluna usada como referência para preenchimento e a coluna, que pode ser em formato de letra ou número.
-	'Informar a coluna é opcional. Caso nenhum valor seja informado, a planilha vai retornar a última linha preenchida da coluna A (1).
-	'O parâmetro última linha determina onde será iniciada a busca. Se uma aba tiver as linhas 1-10 e 18-24 preenchidas, colocar 15 nesse parâmetro vai retornar 10, enquanto colocar 50 vai retornar 24.
+Private Function UltimaLinhaPreenchida(ByVal worksheetName As String, ByVal linhaFinal As Double, Optional ByVal coluna As String) As Double
+    	'Retorna a última linha que possui dados em uma determinada coluna de uma aba da planilha.
+    	'Devem ser passados de parâmetro o nome da aba, a linha usada como referência para preenchimento e a coluna, que pode ser em formato de letra ou número.
+    	'Informar a coluna é opcional. Caso nenhum valor seja informado, a planilha vai retornar a última linha preenchida da coluna A (1).
+    	'O parâmetro última linha determina onde será iniciada a busca. Se uma aba tiver as linhas 1-10 e 18-24 preenchidas, colocar 15 nesse parâmetro vai retornar 10, enquanto colocar 50 vai retornar 24.
 
-	dim rangeStr as String
+    	Dim rangeStr As String
+    	Dim colunaNum As Double
 
-	if (colunaStr = "") And (colunaNum = 0) then
-		colunaNum = 1
-	end if
-	if colunaStr <> "" then
-		rangeStr = colunaStr & linhaFinal
+	If coluna = "" Then 'Não foi passado parâmetro coluna, coluna = 1
+        	colunaNum = 1
+        	UltimaLinhaPreenchida = Worksheets(worksheetName).Cells(linhaFinal, colunaNum).End(xlUp).Row
+	ElseIf IsNumeric(coluna) Then 'Coluna passada como parâmetro é número em formato string. Converte para número e forma a range em formato lin, col.
+		colunaNum = Val(coluna)
+		UltimaLinhaPreenchida = Worksheets(worksheetName).Cells(linhaFinal, colunaNum).End(xlUp).Row
+	Else 'Coluna passada como parâmetro é string. Forma uma range letra-número e utiliza como base.
+	rangeStr = coluna & linhaFinal
 		UltimaLinhaPreenchida = Worksheets(worksheetName).Range(rangeStr).End(xlUp).Row
-	elseif colunaNum > 0 then
-		UltimaLinhaPreenchida = Worksheets(worksheetName).Range(Worksheets(worksheetName).Rows.Count, colunaNum).End(xlUp).Row
-	else
-		colunaNum = 1
-		UltimaLinhaPreenchida = Worksheets(worksheetName).Range(Worksheets(worksheetName).Rows.Count, colunaNum).End(xlUp).Row
-	end if
+	End If
 End Function
+
+'===========================================
+
+Private Sub ToggleDesempenhoMacro(ByVal status As Boolean)
+    'Desativa ou reativa atualização de tela e cálculo automático das células durante a execução da macro.
+    'Via de regra, deve-se ativar a função no início e desativar no fim da macro, ou no tratamento de erros.
+
+    If status Then
+        Application.ScreenUpdating = False
+        Application.Calculation = xlCalculationManual
+    Else
+        Application.ScreenUpdating = True
+        Application.Calculation = xlCalculationAutomatic
+    End If
+
+End Sub
