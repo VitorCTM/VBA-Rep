@@ -58,9 +58,11 @@ Private Sub ToggleDesempenhoMacro(ByVal status As Boolean)
     If status Then
         Application.ScreenUpdating = False
         Application.Calculation = xlCalculationManual
+        Application.DisplayAlerts = False
     Else
         Application.ScreenUpdating = True
         Application.Calculation = xlCalculationAutomatic
+        Application.DisplayAlerts = True
     End If
 
 End Sub
