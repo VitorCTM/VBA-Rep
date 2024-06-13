@@ -1,7 +1,7 @@
 Funções úteis VBA
 -----------------
 
-Function EncontrarCoisas(byVal coisa as String/Integer/Variant/Etc, byVal intervaloBusca as Range, byVal worksheetName as String) as String/Integer/Variant/Etc
+Function EncontrarCoisas(byVal coisa as String/Integer/Variant/Etc, byVal intervaloBusca as String, byVal worksheetName as String) as String/Integer/Variant/Etc
 	'Utiliza o "Localizar" do excel para encontrar qualquer coisa na planilha. Muito mais rápido do que rodar célula a célula com um loop for/while.
 	
 	dim resultado as Range
